@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cgen — SpudLenia Protocell Synthesis Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="viewport-canvas">
+    <!-- Physical Hardware Device Enclosure -->
+    <div class="cgen-device" id="cgenDevice">
+      
+      <!-- Top Navigation Bar -->
+      <header class="device-topbar">
+        <div class="brand-title">cgen</div>
+        
+        <!-- Module / Form Switcher -->
+        <nav class="module-switcher" id="moduleSwitcher" aria-label="Operating Mode">
+          <button class="module-tab active" data-mode="synth" title="Biophysical Continuum Synthesizer">
+            <span class="tab-indicator"></span>
+            <span>Synth</span>
+          </button>
+          <button class="module-tab" data-mode="archive" title="MAP-Elites Behavioral Archive">
+            <span>Archive</span>
+            <span class="badge-pill" id="archiveBadge">0</span>
+          </button>
+          <button class="module-tab" data-mode="compute" title="Chemical Reservoir Computing">
+            <span>Compute</span>
+          </button>
+        </nav>
+
+        <button class="about-btn" id="aboutBtn">About</button>
+      </header>
+      <div class="topbar-groove"></div>
+
+      <!-- Main Body: Left Sidebar, Screen Viewport, Right Fader Rails -->
+      <div class="device-body">
+        
+        <!-- Left Column: Component Selectors & Save -->
+        <aside class="device-left">
+          <div class="section-label">Component Type</div>
+          <div class="label-underline"></div>
+
+          <!-- Segmented Vertical Pill Menu with Explicit Phenotypic Affordances -->
+          <div class="component-pill-menu" id="componentMenu">
+            <button class="comp-item active" data-preset="fission" title="Autonomous Cytokinesis via localized equatorial growth arrest">
+              <span class="comp-title">Component_1</span>
+              <span class="comp-affordance">FISSION</span>
+            </button>
+            <button class="comp-item" data-preset="soliton" title="Self-stabilizing continuous motile traveling wave">
+              <span class="comp-title">Component_2</span>
+              <span class="comp-affordance">SOLITON</span>
+            </button>
+            <button class="comp-item" data-preset="bloat" title="Hypertrophic expansion without furrow constriction">
+              <span class="comp-title">Component_3</span>
+              <span class="comp-affordance">BLOAT</span>
+            </button>
+            <button class="comp-item" data-preset="colony" title="Multi-protocell cooperative resource foraging">
+              <span class="comp-title">Component_4</span>
+              <span class="comp-affordance">COLONY</span>
+            </button>
+          </div>
+
+          <!-- Bottom Left Save Button -->
+          <button class="tactile-btn save-btn" id="saveBtn" title="Export High-Resolution Frame (PNG)">
+            <span>Save</span>
+          </button>
+        </aside>
+
+        <!-- Center Screen: Beveled Inset Frame & High-DPI Canvas -->
+        <main class="device-center">
+          <div class="screen-frame">
+            <!-- Screen Display (OLED Canvas) -->
+            <div class="screen-glass">
+              <canvas id="simCanvas" width="512" height="340"></canvas>
+              
+              <!-- Subtle Telemetry HUD Overlay -->
+              <div class="screen-hud" id="screenHud">
+                <div class="hud-item"><span class="hud-dot"></span> <span id="hudPreset">Component_1 (Fission)</span></div>
+                <div class="hud-item">STEP: <span id="hudStep">0</span></div>
+                <div class="hud-item">MASS M(t): <span id="hudMass">1.000</span></div>
+                <div class="hud-item">FPS: <span id="hudFps">60</span></div>
+              </div>
+
+              <!-- Contextual Direct Manipulation Affordance Hint -->
+              <div class="canvas-action-hint" id="canvasHint">
+                <span class="hint-glyph">✛</span>
+                <span class="hint-text">CLICK: Seed Soliton &nbsp;·&nbsp; SHIFT+DRAG: Feed Nutrients</span>
+              </div>
+            </div>
+
+            <!-- Screen Bottom Controls Inside Bezel -->
+            <div class="screen-bottom-bar">
+              <div class="step-controls">
+                <button class="circle-btn" id="zoomOutBtn" title="Decrease Simulation Rate (−0.25×)">−</button>
+                <div class="rate-indicator" id="rateIndicator" title="Current Simulation Speed">1.0×</div>
+                <button class="circle-btn" id="zoomInBtn" title="Increase Simulation Rate (+0.25×)">+</button>
+              </div>
+              
+              <button class="vote-pill-btn" id="voteBtn" title="Vote & Curate Specimen into MAP-Elites Archive">
+                <span class="heart-icon">♥</span>
+                <span class="vote-text">Vote</span>
+                <span class="vote-tag" id="voteCountBadge">0</span>
+              </button>
+            </div>
+          </div>
+        </main>
+
+        <!-- Right Column: Dual Tactile Capacitive Faders with Explicit Parameter Affordances -->
+        <aside class="device-right">
+          <!-- Top Vertical Fader: Furrow Brake (alpha_neck) -->
+          <div class="fader-module">
+            <div class="fader-header">
+              <span class="fader-name">BRAKE</span>
+              <span class="fader-param">α</span>
+            </div>
+            <div class="fader-track" id="faderTrack1" title="Furrow Necking Brake (alpha_neck: 0.0 — 2.5)">
+              <div class="fader-ticks">
+                <span class="tick"></span>
+                <span class="tick major"></span>
+                <span class="tick"></span>
+                <span class="tick major"></span>
+                <span class="tick"></span>
+              </div>
+              <div class="fader-pill" id="faderPill1"></div>
+              <div class="fader-tooltip" id="faderTip1">Furrow Brake α: 1.25</div>
+            </div>
+          </div>
+
+          <!-- Bottom Vertical Fader: Feeder Flux (gamma_assim) -->
+          <div class="fader-module">
+            <div class="fader-header">
+              <span class="fader-name">FLUX</span>
+              <span class="fader-param">γ</span>
+            </div>
+            <div class="fader-track" id="faderTrack2" title="Feeder Liposome Flux (gamma_assim: 0.0 — 2.0)">
+              <div class="fader-ticks">
+                <span class="tick"></span>
+                <span class="tick major"></span>
+                <span class="tick"></span>
+                <span class="tick major"></span>
+                <span class="tick"></span>
+              </div>
+              <div class="fader-pill" id="faderPill2"></div>
+              <div class="fader-tooltip" id="faderTip2">Feeder Flux γ: 0.85</div>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Specimen Archive Drawer / Modal -->
+  <div class="modal-backdrop" id="archiveModal">
+    <div class="modal-card archive-card">
+      <div class="modal-header">
+        <div class="archive-header-title">
+          <h3>MAP-Elites Specimen Archive</h3>
+          <span class="archive-subtitle">Curated Phenotypes from <span class="kbd">♥ Vote</span> Selection</span>
+        </div>
+        <button class="modal-close" id="archiveClose">✕</button>
+      </div>
+      <div class="archive-content">
+        <div class="archive-empty" id="archiveEmpty">
+          <p>No curated specimens yet.</p>
+          <span class="archive-empty-tip">Click <strong>♥ Vote</strong> on the bottom bezel during simulation to curate living solitons into this archive.</span>
+        </div>
+        <div class="specimen-grid" id="specimenGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Modal -->
+  <div class="modal-backdrop" id="aboutModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>cgen × SpudLenia</h3>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <div class="modal-content">
+        <p><strong>SpudLenia: Coupling Synthetic Protocell Hydrodynamics with Continuous Cellular Automata for Autonomous Morphogenesis</strong></p>
+        <p>This physical synthesizer interface emulates real-time continuous cellular automata governed by coupled biophysical reaction-diffusion-convolution PDEs:</p>
+        <ul>
+          <li><strong>Component_1 (FISSION):</strong> Autonomous cytokinesis via localized equatorial growth-braking ($-\alpha_{\text{neck}} \|\nabla A_{\text{crowd}}\|^2 A_{\text{lipid}}$).</li>
+          <li><strong>Component_2 (SOLITON):</strong> Self-stabilizing continuous motile traveling soliton.</li>
+          <li><strong>Component_3 (BLOAT):</strong> Unregulated open-system assimilation transitioning into hypertrophic mass bloating.</li>
+          <li><strong>Component_4 (COLONY):</strong> Multi-vesicle cooperative swarm dynamics and resource foraging.</li>
+        </ul>
+        <p class="modal-hint"><em>Affordances:</em> Click on the canvas to seed protocell solitons, or drag with Shift to paint nutrient liposomes. Use the upper capacitive fader to tune localized furrow constriction ($\alpha$), and the lower fader to dial ambient metabolic flux ($\gamma$).</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="sim.js"></script>
+</body>
+</html>
