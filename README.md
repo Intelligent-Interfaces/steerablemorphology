@@ -13,7 +13,7 @@
 </div>
 <!-- rumdl-enable MD033 MD041 -->
 
-**SteerableMorphology** is an open-source library, predictive digital twin, and real-time control interface developed at the **Intelligent Interfaces Group (MIT Media Lab)**. It couples differentiable continuous cellular automata (such as [SpudLenia](https://github.com/intelligent-interfaces/spudlenia)) to benchtop microfluidic hardware, enabling real-time steering of synthetic protocell cytokinesis and emergent biological self-organization.
+**SteerableMorphology** is an open-source library, predictive digital twin, and real-time control interface. It couples differentiable continuous cellular automata (such as [SpudLenia](https://github.com/intelligent-interfaces/spudlenia)) to benchtop microfluidic hardware, enabling real-time steering of synthetic protocell cytokinesis and emergent biological self-organization.
 
 ---
 
@@ -194,4 +194,4 @@ If you find this software or platform helpful in your research, please cite:
 
 ## License
 
-Distributed under the **MIT License**. Developed by the **Intelligent Interfaces Group (IIG)** at the MIT Media Lab.
+Distributed under the **MIT License**.
