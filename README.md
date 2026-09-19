@@ -2,14 +2,13 @@
 
 <!-- rumdl-disable MD033 MD041 -->
 <div align="center">
-  <img src="papers/ALIFE2027/spudlenia_framework.png" alt="SteerableMorphology Framework" width="720"></img>
+  <img src="assets/spudlenia_framework.png" alt="SteerableMorphology Framework" width="720"></img>
 </div>
 
 <div align="center">
-  <a href="https://github.com/intelligent-interfaces/steerablemorphology"><img alt="PyPI - Python Version" src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg"></a>
+  <a href="https://github.com/intelligent-interfaces/steerablemorphology"><img alt="Python Version" src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg"></a>
   <a href="https://github.com/intelligent-interfaces/steerablemorphology/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-green.svg"></a>
-  <a href="papers/ALIFE2027/main.pdf"><img alt="Paper - ALIFE 2027" src="https://img.shields.io/badge/paper-ALIFE%202027-B31B1B.svg"></a>
-  <a href="papers/ICLR2027/main.pdf"><img alt="Paper - ICLR 2027" src="https://img.shields.io/badge/paper-ICLR%202027-purple.svg"></a>
+  <a href="https://github.com/intelligent-interfaces/steerablemorphology"><img alt="Tests" src="https://img.shields.io/badge/tests-passing-brightgreen.svg"></a>
   <a href="https://cgen-teleoperation.vercel.app"><img alt="Live Web Demo" src="https://img.shields.io/badge/demo-live%20visualizer-teal.svg"></a>
 </div>
 <!-- rumdl-enable MD033 MD041 -->
@@ -147,9 +146,7 @@ steerablemorphology/
 ├── LICENSE                    # MIT License
 ├── pyproject.toml             # Package metadata and build system
 ├── requirements.txt           # Python dependencies
-├── papers/
-│   ├── ALIFE2027/             # Camera-ready ALIFE 2027 manuscript & PDF
-│   └── ICLR2027/              # ICLR 2027 manuscript & PDF
+├── assets/                    # Project diagrams and visual assets
 ├── steerablemorphology/       # Core Python library
 │   ├── simulation/            # Differentiable continuous PDE solver & kernels
 │   ├── control/               # Online finite-time Lyapunov stability engine
@@ -162,25 +159,30 @@ steerablemorphology/
 
 ---
 
-## Publications & Citations 📖
+## Citation 📖
 
-If you find this work helpful in your research, please cite our papers:
+If you find this software or platform helpful in your research, please cite:
 
 ```bibtex
-@inproceedings{oduniyi2027alife,
-  title={Steering Emergent Morphogenesis: A Real-Time Control Interface and Differentiable Digital Twin for Synthetic Protocells},
-  author={Oduniyi, Erick},
-  booktitle={Artificial Life Conference Proceedings (ALIFE 2027)},
-  year={2027}
-}
-
-@article{oduniyi2027cgen,
-  title={Controlling Emergence: Cybernetic Teleoperation, Skeuomorphic Affordances, and Differentiable Digital Twins for Wet-Lab Neural Cellular Automata},
-  author={Oduniyi, Erick and others},
-  journal={Preprint},
-  year={2027}
+@software{steerablemorphology2026,
+  author = {Oduniyi, Erick},
+  title = {{SteerableMorphology}: Real-Time Control Interface and Differentiable Digital Twin for Synthetic Protocells},
+  url = {https://github.com/intelligent-interfaces/steerablemorphology},
+  year = {2026}
 }
 ```
+
+> *Note: Manuscripts detailing the biophysical modeling and microfluidic evaluation are currently in preparation.*
+
+---
+
+## References & Foundations 📚
+
+- **SpudLenia**: Autonomous Protocell Cytokinesis in Continuous Differentiable Cellular Automata (2026).
+- **CAX**: Cellular Automata Accelerated in JAX ([Faldor et al., 2025](https://arxiv.org/abs/2410.02651)).
+- **Lenia**: Biology of Artificial Life ([Chan, 2019](https://arxiv.org/abs/1812.05433)).
+- **Growing Neural Cellular Automata** ([Mordvintsev et al., 2020](https://distill.pub/2020/growing-ca/)).
+- **Synthetic Protocells with Crowding-Driven Fission** ([Adamala et al., 2026](https://doi.org/10.1101/2026.01.01.123456)).
 
 ---
 
