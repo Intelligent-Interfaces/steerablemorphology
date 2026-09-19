@@ -41,3 +41,9 @@ htmlcov/
 *.synctex.gz
 *.fdb_latexmk
 *.fls
+
+# Papers & Conference directories
+papers/
+conferences/
+*.pdf
+
