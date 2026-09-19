@@ -1,4 +1,4 @@
-# SteerableMorphology: Real-Time Control & Differentiable Digital Twins for Synthetic Protocells
+# SteerableMorphology: Real-Time Control and Differentiable Digital Twins for Synthetic Protocells
 
 <!-- rumdl-disable MD033 MD041 -->
 <div align="center">
@@ -13,43 +13,47 @@
 </div>
 <!-- rumdl-enable MD033 MD041 -->
 
-**SteerableMorphology** is an open-source library, predictive digital twin, and cybernetic control interface developed at the **Intelligent Interfaces Group (MIT Media Lab)**. It couples differentiable continuous cellular automata (such as [SpudLenia](https://github.com/intelligent-interfaces/spudlenia)) to benchtop microfluidic hardware, enabling real-time steering of synthetic protocell cytokinesis and emergent biological self-organization. 🧬
+**SteerableMorphology** is an open-source library, predictive digital twin, and real-time control interface developed at the **Intelligent Interfaces Group (MIT Media Lab)**. It couples differentiable continuous cellular automata (such as [SpudLenia](https://github.com/intelligent-interfaces/spudlenia)) to benchtop microfluidic hardware, enabling real-time steering of synthetic protocell cytokinesis and emergent biological self-organization.
 
 ---
 
-## Overview 🔎
+## Overview
 
 Can we steer living and synthetic self-organizing matter in real time?
 
-In continuous artificial life, reaction-diffusion fields and continuous cellular automata autonomously generate complex morphogenesis. Yet translating these *in silico* models to physical wet-lab protocells—such as Giant Unilamellar Vesicles (GUVs)—reveals a catastrophic control bottleneck:
+In continuous artificial life, reaction-diffusion fields and continuous cellular automata autonomously generate complex morphogenesis. Yet translating these *in silico* models to physical wet-lab protocells—such as Giant Unilamellar Vesicles (GUVs)—reveals a critical control bottleneck:
 
-1. **Fluid Transport Latency**: Physical microfluidic perfusion lines impose fluid transit delays of $5\text{--}30\,\text{seconds}$.
-2. **Brittle Bifurcation Boundaries**: Protocells operate far from thermodynamic equilibrium. Instantaneous microscopic observation is too late: once osmotic swelling is visually detected, membrane rupture (lysis) is already physically irreversible.
-3. **Discrete vs. Continuous Actuation**: Discrete numerical inputs excite high-wavenumber spatial oscillations that destroy vesicle stability.
+1. **Fluid Transport Latency**: Physical microfluidic perfusion lines impose fluid transit delays of 5 to 30 seconds.
+2. **Brittle Bifurcation Boundaries**: Protocells operate far from thermodynamic equilibrium. Instantaneous microscopic observation is insufficient: once osmotic swelling is visually observed, membrane rupture (lysis) is already physically irreversible.
+3. **Discrete vs. Continuous Actuation**: Discrete numerical inputs excite high-wavenumber spatial oscillations that compromise vesicle stability.
 
-**SteerableMorphology** resolves this bottleneck by deploying an online **differentiable digital twin** that unrolls trajectories $14.4\,\text{seconds}$ ahead of physical time. By estimating finite-time local Lyapunov exponents ($\lambda$), the system warns operators and throttles actuators $8.4\,\text{seconds}$ before non-linear instabilities occur. 🔬
+**SteerableMorphology** resolves this bottleneck by deploying an online **differentiable digital twin** that unrolls trajectories 14.4 seconds ahead of physical time. By estimating finite-time local Lyapunov exponents ($\lambda$), the system warns operators and throttles actuators 8.4 seconds before non-linear instabilities occur.
 
 ---
 
-## Why SteerableMorphology? 💡
+## Motivation and Design Principles
 
-### Fast & Differentiable 🚀
-Built on PyTorch with spatial Fast Fourier Transform (FFT) convolutions, the simulator evaluates individual steps in $1.18\,\text{ms}$ on consumer GPUs. An entire 120-step predictive lookahead trajectory unrolls in just $141.6\,\text{ms}$, well within the microfluidic control latency budget.
+### Fast and Differentiable Simulation
+Built on PyTorch with spatial Fast Fourier Transform (FFT) convolutions, the simulator evaluates individual steps in 1.18 ms on consumer GPUs. An entire 120-step predictive lookahead trajectory unrolls in 141.6 ms, well within the microfluidic control latency budget.
 
-### Predictive Stability Filtering 🛡️
+### Predictive Stability Filtering
 Instead of relying on post-hoc static thresholds, SteerableMorphology computes local finite-time Lyapunov exponents:
-$$\lambda(t) = \frac{1}{T_{\text{pred}} \Delta t} \ln \frac{\|\mathbf{A}_{\text{pert}}(t + T_{\text{pred}}) - \mathbf{A}_{\text{base}}(t + T_{\text{pred}})\|_2}{\|\delta \mathbf{A}_0\|_2}$$
-Trajectories undergoing exponential divergence ($\lambda > 0$) trigger automatic pump throttling and software resistance, slashing osmotic rupture rates from $58.4\%$ to $7.6\%$.
 
-### Ergonomic Tactile Controls 🎛️
-Inspired by modular audio synthesis consoles and ecological affordance theory, the interactive console (`cgen`) maps continuous rotary potentiometers and motorized faders to continuous field parameters. Physical resistance acts as a mechanical low-pass filter on operator input velocity ($\|\dot{\boldsymbol{\theta}}\| \le v_{\max}$), preventing destructive step-transients.
+```math
+\lambda(t) = \frac{1}{T_{\text{pred}} \Delta t} \ln \frac{\|\mathbf{A}_{\text{pert}}(t + T_{\text{pred}}) - \mathbf{A}_{\text{base}}(t + T_{\text{pred}})\|_2}{\|\delta \mathbf{A}_0\|_2}
+```
 
-### Open Biomaker Wet-Lab Pipeline 🌿
-Designed in collaboration with the open-science prototyping ethos of the **MIT Media Lab Community Biotechnology Initiative (CBI)**, the platform replaces million-dollar cleanroom microfluidics with desktop laser-cut PMMA acrylic trapping arrays, cell-free TX-TL protein expression, and open-source microcontroller serial bridging.
+Trajectories undergoing exponential divergence ($\lambda > 0$) trigger automatic pump throttling and software resistance, reducing osmotic rupture rates from 58.4% to 7.6%.
+
+### Continuous Tactile Controls
+Inspired by modular audio synthesis consoles and ecological affordance theory, the interactive console (`cgen`) maps continuous rotary potentiometers and motorized faders to continuous field parameters. Physical resistance acts as a mechanical low-pass filter on operator input velocity ($\|\dot{\theta}\| \le v_{\max}$), preventing destructive step-transients.
+
+### Open Biomaker Wet-Lab Pipeline
+Designed in collaboration with the open-science prototyping ethos of the **MIT Media Lab Community Biotechnology Initiative (CBI)**, the platform replaces cleanroom microfluidics with desktop laser-cut PMMA acrylic trapping arrays, cell-free TX-TL protein expression, and open-source microcontroller serial bridging.
 
 ---
 
-## Quickstart 💻
+## Quickstart
 
 ### Installation
 
@@ -86,17 +90,17 @@ print(f"Recommended Pump Throttle: {report.recommended_throttle * 100:.1f}%")
 
 ---
 
-## Benchmarks 📊
+## Benchmarks
 
-### 1. Computational Latency & Predictive Horizon
+### 1. Computational Latency and Predictive Horizon
 
 Benchmarked on an Apple M1 Pro GPU (MPS / WebGL):
 
-| Lattice Grid ($H \times W$) | Step Latency | Render Rate | BPTT Unroll ($T_{\text{pred}}=120$) | Lookahead Horizon ($T_{\text{lead}}$) | VRAM Footprint |
+| Lattice Grid ($H \times W$) | Step Latency | Render Rate | Rollout ($T_{\text{pred}}=120$) | Lookahead Horizon | VRAM Footprint |
 |---|---|---|---|---|---|
-| $128 \times 128$ | $0.34\,\text{ms}$ | $60\,\text{FPS}$ | $40.8\,\text{ms}$ | $14.4\,\text{s}$ | $12.4\,\text{MB}$ |
-| **$256 \times 256$ (Nominal)** | **$1.18\,\text{ms}$** | **$60\,\text{FPS}$** | **$141.6\,\text{ms}$** | **$14.4\,\text{s}$** | **$38.2\,\text{MB}$** |
-| $512 \times 512$ | $4.42\,\text{ms}$ | $58\,\text{FPS}$ | $530.4\,\text{ms}$ | $14.4\,\text{s}$ | $142.8\,\text{MB}$ |
+| $128 \times 128$ | 0.34 ms | 60 FPS | 40.8 ms | 14.4 s | 12.4 MB |
+| **$256 \times 256$ (Nominal)** | **1.18 ms** | **60 FPS** | **141.6 ms** | **14.4 s** | **38.2 MB** |
+| $512 \times 512$ | 4.42 ms | 58 FPS | 530.4 ms | 14.4 s | 142.8 MB |
 
 ### 2. Stochastic Flow Perturbation Benchmark (500 Trials)
 
@@ -104,62 +108,64 @@ Comparison under random nutrient surges ($Q_{\text{syringe}} \in [0.8, 1.8]\,\mu
 
 | Metric | Static Threshold Baseline | Predictive Lyapunov (Ours) | Relative Improvement |
 |---|---|---|---|
-| **Warning Lead Time** | $0.9 \pm 0.4\,\text{s}$ | **$8.4 \pm 1.2\,\text{s}$** | **$+7.5\,\text{s}$ earlier warning** |
-| **Averted Lysis / Rupture** | $41.6\%$ | **$92.4\%$** | **$+50.8\%$ recovery** |
-| **Osmotic Rupture Rate ($\mathcal{R}_{\text{lysis}}$)** | $58.4\%$ | **$7.6\%$** | **$-87.0\%$ fewer failures** |
-| **Starvation Rate ($\mathcal{R}_{\text{starve}}$)** | $14.2\%$ | **$2.8\%$** | **$-80.3\%$ fewer dissolutions** |
-| **Successful Cytokinesis Yield ($\mathcal{Y}_{\text{cyto}}$)** | $27.4\%$ | **$89.6\%$** | **$+62.2\%$ division yield** |
-| **False Alarm Rate** | $18.7\%$ | **$3.2\%$** | **$-82.9\%$ spurious warnings** |
+| **Warning Lead Time** | 0.9 +/- 0.4 s | **8.4 +/- 1.2 s** | +7.5 s earlier warning |
+| **Averted Lysis / Rupture** | 41.6% | **92.4%** | +50.8% recovery |
+| **Osmotic Rupture Rate ($R_{\text{lysis}}$)** | 58.4% | **7.6%** | -87.0% fewer failures |
+| **Starvation Rate ($R_{\text{starve}}$)** | 14.2% | **2.8%** | -80.3% fewer dissolutions |
+| **Successful Cytokinesis Yield ($Y_{\text{cyto}}$)** | 27.4% | **89.6%** | +62.2% division yield |
+| **False Alarm Rate** | 18.7% | **3.2%** | -82.9% spurious warnings |
 
 ---
 
-## Closed-Loop Latency Budget ⏱️
+## Closed-Loop Latency Budget
 
-$$\tau_{\text{closed-loop}} = \tau_{\text{input}} + \tau_{\text{BPTT}} + \tau_{\text{serial}} + \tau_{\text{pump}} \approx 10\,\text{ms} + 142\,\text{ms} + 20\,\text{ms} + 120\,\text{ms} \approx 292\,\text{ms}$$
+```math
+\tau_{\text{closed-loop}} = \tau_{\text{input}} + \tau_{\text{BPTT}} + \tau_{\text{serial}} + \tau_{\text{pump}} \approx 10\text{ ms} + 142\text{ ms} + 20\text{ ms} + 120\text{ ms} \approx 292\text{ ms}
+```
 
-Because the entire closed-loop latency is under **$0.3\,\text{seconds}$**, the digital twin preempts non-linear bifurcation boundaries well before physical fluids traverse the perfusion tubing ($5\text{--}30\,\text{seconds}$).
+Because the total closed-loop latency is under 0.3 seconds, the digital twin preempts non-linear bifurcation boundaries well before physical fluids traverse the perfusion tubing (5 to 30 seconds).
 
 ---
 
-## Interactive Web Visualizer 🌐
+## Interactive Web Visualizer
 
 The repository includes a standalone, client-side WebGL / WebSerial interface in [`web/`](web/):
 
-- **Real-time continuous canvas**: Displays multi-scale lipid bilayer density, crowding gradients, and nutrient baths.
-- **Physical actuator faders**: Ergonomic control rails with software resistance against unstable parameter regimes.
-- **WebSerial integration**: Direct connection to USB microcontrollers running syringe pumps.
+- **Real-Time Continuous Canvas**: Displays multi-scale lipid bilayer density, crowding gradients, and nutrient baths.
+- **Physical Actuator Faders**: Ergonomic control rails with software resistance against unstable parameter regimes.
+- **WebSerial Integration**: Direct connection to USB microcontrollers driving syringe pumps.
 
 Launch locally:
 ```bash
 cd web
 python3 -m http.server 8000
-# Open http://localhost:8000 in Chrome / Edge (supporting WebSerial)
+# Open http://localhost:8000 in a browser supporting WebSerial (Chrome, Edge)
 ```
 
 ---
 
-## Repository Structure 📁
+## Repository Structure
 
 ```
 steerablemorphology/
-├── README.md                  # CAX-style project documentation
+├── README.md                  # Project documentation
 ├── LICENSE                    # MIT License
 ├── pyproject.toml             # Package metadata and build system
 ├── requirements.txt           # Python dependencies
 ├── assets/                    # Project diagrams and visual assets
 ├── steerablemorphology/       # Core Python library
-│   ├── simulation/            # Differentiable continuous PDE solver & kernels
+│   ├── simulation/            # Differentiable continuous PDE solver and kernels
 │   ├── control/               # Online finite-time Lyapunov stability engine
 │   └── hardware/              # Microfluidic serial communications bridge
 ├── web/                       # Standalone WebGL / WebSerial console
 ├── cad/                       # Laser-cut PMMA GUV trapping array blueprints
-├── benchmarks/                # Latency & 500-trial stability benchmark scripts
+├── benchmarks/                # Latency and 500-trial stability benchmark scripts
 └── tests/                     # Automated pytest verification suite
 ```
 
 ---
 
-## Citation 📖
+## Citation
 
 If you find this software or platform helpful in your research, please cite:
 
@@ -176,7 +182,7 @@ If you find this software or platform helpful in your research, please cite:
 
 ---
 
-## References & Foundations 📚
+## References and Foundations
 
 - **SpudLenia**: Autonomous Protocell Cytokinesis in Continuous Differentiable Cellular Automata (2026).
 - **CAX**: Cellular Automata Accelerated in JAX ([Faldor et al., 2025](https://arxiv.org/abs/2410.02651)).
